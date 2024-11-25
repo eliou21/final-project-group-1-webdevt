@@ -40,7 +40,8 @@ function CustomerRegister() {
   };
 
   return (
-    <div>
+    <div className="customer-login-container">
+      <div className="customer-login-box">
       <h2>Customer Registration</h2>
       <form onSubmit={handleRegister}>
         <input
@@ -80,6 +81,7 @@ function CustomerRegister() {
         />
         <button type="submit">Register</button>
       </form>
+    </div>
     </div>
   );
 }

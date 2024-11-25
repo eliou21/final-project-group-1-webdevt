@@ -20,6 +20,8 @@ import CustomerRegister from './components/RegularUser/CustomerRegister';
 import RestaurantDashboard from './components/Admin/RestaurantDashboard';
 import AllReservations from './components/RestaurantAdmin/AllReservations';
 import './App.css';
+import './Welcome.css';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

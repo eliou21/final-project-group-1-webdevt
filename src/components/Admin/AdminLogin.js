@@ -29,33 +29,32 @@ function AdminLogin({ onLogin }) {
   };
 
   return (
-    <div>
-      <h2>Admin Login</h2>
-      <form onSubmit={handleLogin} className="login-form">
-        <div className="form-group">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-            className="form-input"
-          />
-        </div>
-        <button type="submit" className="submit-btn">Login</button>
-      </form>
-      <p>Don't have an account? <Link to="/register/admin">Register</Link></p>
+    <div className="customer-login-container">
+      <div className="customer-login-box">
+        <h2>Admin Login</h2>
+        <form onSubmit={handleLogin} className="login-form">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              required
+              className="form-input"
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+              className="form-input"
+            />
+          <button type="submit" className="submit-btn">Login</button>
+        </form>
+        <p>Don't have an account? <Link to="/register/admin">Register</Link></p>
     </div>
+    </div>
+  
   );
 }
 

@@ -50,7 +50,8 @@ function RestaurantAdminLogin({ onLogin }) {
   };  
 
   return (
-    <div>
+    <div className="customer-login-container">
+      <div className="customer-login-box">
       <h2>Restaurant Admin Login</h2>
       <form onSubmit={handleLogin}>
         {/* Dropdown for available restaurants */}
@@ -91,6 +92,7 @@ function RestaurantAdminLogin({ onLogin }) {
         Don't have an account?{' '}
         <Link to="/register/restaurant-admin">Register</Link>
       </p>
+    </div>
     </div>
   );
 }
