@@ -1,0 +1,188 @@
+import React, { useState, useEffect } from 'react';
+
+function AddRestaurant() {
+  const [restaurantName, setRestaurantName] = useState('');
+  const [location, setLocation] = useState('');
+  const [capacity, setCapacity] = useState('');
+  const [tables, setTables] = useState(''); // New state for number of tables
+  const [description, setDescription] = useState('');
+  const [coverImage, setCoverImage] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
+  const [capacityError, setCapacityError] = useState('');
+
+  useEffect(() => {
+    const storedRestaurants = JSON.parse(localStorage.getItem('restaurants')) || [];
+    setRestaurants(storedRestaurants);
+  }, []);
+
+  // In AddRestaurant component
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const existingRestaurants = JSON.parse(localStorage.getItem('restaurants')) || [];
+
+    if (existingRestaurants.length >= 4) {
+      alert('System capacity reached. No more than 4 restaurants can be added.');
+      return;
+    }
+
+    if (capacity < 1 || capacity > 30) {
+      alert('Capacity must be between 1 and 30.');
+      return;
+    }
+
+    const newRestaurant = {
+      name: restaurantName,
+      location,
+      capacity: Number(capacity),
+      tables: Array(Number(tables)).fill(false), // Store an array of tables
+      description,
+      image: coverImage,
+    };
+
+    existingRestaurants.push(newRestaurant);
+    localStorage.setItem('restaurants', JSON.stringify(existingRestaurants));
+
+    setRestaurants(existingRestaurants);
+    alert(`Restaurant "${restaurantName}" added successfully!`);
+    setRestaurantName('');
+    setLocation('');
+    setCapacity('');
+    setTables(''); // Reset tables
+    setDescription('');
+    setCoverImage(null);
+  };
+
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleCapacityChange = (e) => {
+    const value = e.target.value;
+    setCapacity(value);
+
+    if (value < 1 || value > 30) {
+      setCapacityError('Capacity must be between 1 and 30.');
+    } else {
+      setCapacityError('');
+    }
+  };
+
+  return (
+    <div className="admin-container">
+      <h1>Add Restaurant</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>
+            Restaurant Name:
+            <input
+              type="text"
+              value={restaurantName}
+              onChange={(e) => setRestaurantName(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+
+        <div className="form-group">
+          <label>
+            Location:
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+
+        <div className="form-group">
+          <label>
+            Capacity:
+            <input
+              type="number"
+              value={capacity}
+              onChange={handleCapacityChange}
+              required
+            />
+          </label>
+          {capacityError && <p style={{ color: 'red' }}>{capacityError}</p>}
+        </div>
+
+        <div className="form-group">
+          <label>
+            Number of Tables:
+            <input
+              type="number"
+              value={tables}
+              onChange={(e) => setTables(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+
+        <div className="form-group">
+          <label>
+            Description:
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            ></textarea>
+          </label>
+        </div>
+
+        <div className="form-group">
+          <label>
+            Cover Image:
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+            />
+          </label>
+        </div>
+
+        <button type="submit">Add Restaurant</button>
+      </form>
+
+      <h2>Available Restaurants</h2>
+      {restaurants.length === 0 ? (
+        <p>No restaurants available</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Location</th>
+              <th>Capacity</th>
+              <th>Number of Tables</th> {/* New column for tables */}
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {restaurants.map((restaurant, index) => (
+              <tr key={index}>
+                <td>{restaurant.name}</td>
+                <td>{restaurant.location}</td>
+                <td>{restaurant.capacity}</td>
+                <td>{restaurant.tables}</td> {/* Show number of tables */}
+                <td>{restaurant.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
+export default AddRestaurant;

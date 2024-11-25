@@ -1,0 +1,14 @@
+/* Welcome.css */
+.welcome-container {
+    text-align: center;
+    margin: 50px auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
