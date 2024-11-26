@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 
 function AdminRegister() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
@@ -28,23 +27,21 @@ function AdminRegister() {
     const newUser = {
       name,
       email,
-      phone,
       password,
-      role: 'Admin', // Set role as Admin
+      role: 'Admin',
     };
 
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
-
-    // Redirect to the admin login page
     navigate('/login/admin');
   };
 
   return (
-    <div>
+    <div className="customer-login-container">
+      <div className="customer-login-box">
       <h2>Admin Registration</h2>
       <form onSubmit={handleRegister} className="register-form">
-        <div className="form-group">
+        
           <input
             type="text"
             value={name}
@@ -53,8 +50,7 @@ function AdminRegister() {
             required
             className="form-input"
           />
-        </div>
-        <div className="form-group">
+      
           <input
             type="email"
             value={email}
@@ -63,18 +59,7 @@ function AdminRegister() {
             required
             className="form-input"
           />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Phone Number"
-            required
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
+      
           <input
             type="password"
             value={password}
@@ -83,8 +68,7 @@ function AdminRegister() {
             required
             className="form-input"
           />
-        </div>
-        <div className="form-group">
+        
           <input
             type="password"
             value={confirmPassword}
@@ -93,9 +77,13 @@ function AdminRegister() {
             required
             className="form-input"
           />
-        </div>
         <button type="submit" className="submit-btn">Register</button>
       </form>
+      <p>
+          Already have an account?{' '}
+          <Link to="/login/admin">Log in</Link>
+        </p>
+    </div>
     </div>
   );
 }

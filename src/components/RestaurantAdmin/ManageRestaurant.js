@@ -41,7 +41,7 @@ function ManageRestaurant() {
           <thead>
             <tr>
               <th>Reservation ID</th>
-              <th>Reserved Under</th> {/* New column for reserved name */}
+              <th>Reserved Under</th>
               <th>Date</th>
               <th>Time</th>
               <th>Guests</th>
@@ -52,7 +52,7 @@ function ManageRestaurant() {
             {reservations.map((res) => (
               <tr key={res.id}>
                 <td>{res.id}</td>
-                <td>{res.reservedUnder}</td> {/* Display reserved name */}
+                <td>{res.reservedUnder}</td>
                 <td>{res.date}</td>
                 <td>{res.time}</td>
                 <td>{res.guests}</td>

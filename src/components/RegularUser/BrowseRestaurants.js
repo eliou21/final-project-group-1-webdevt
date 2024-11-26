@@ -3,24 +3,18 @@ import React, { useState, useEffect } from 'react';
 function BrowseRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
 
-  // Function to fetch restaurants from localStorage
   const updateRestaurants = () => {
     const storedRestaurants = JSON.parse(localStorage.getItem('restaurants')) || [];
     setRestaurants(storedRestaurants);
   };
 
   useEffect(() => {
-    // Initial fetch of restaurants from localStorage
     updateRestaurants();
-
-    // Setting up interval to periodically update restaurant data
     const intervalId = setInterval(() => {
       updateRestaurants();
-    }, 1000); // Update every 1 second (can adjust as necessary)
-
-    // Cleanup interval on unmount
+    }, 1000);
     return () => clearInterval(intervalId);
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []);
 
   return (
     <div className="regular-user-container">

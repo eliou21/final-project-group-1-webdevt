@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 function AllReservations() {
   const [reservations, setReservations] = useState([]);
-  const [sortBy, setSortBy] = useState('id'); // Default sort by 'id'
-  const [sortOrder, setSortOrder] = useState('asc'); // Default to ascending
-  const [searchQuery, setSearchQuery] = useState(''); // For search functionality
+  const [sortBy, setSortBy] = useState('id');
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [searchQuery, setSearchQuery] = useState('');
   const [restaurantName, setRestaurantName] = useState('');
 
   useEffect(() => {
@@ -12,15 +12,10 @@ function AllReservations() {
 
     if (currentUser && currentUser.role === 'Restaurant Admin') {
       setRestaurantName(currentUser.restaurantName);
-
-      // Fetch all reservations from localStorage
       const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
-
-      // Filter reservations based on the restaurant name
       const restaurantReservations = allReservations.filter(
         (reservation) => reservation.restaurant === currentUser.restaurantName
       );
-
       setReservations(restaurantReservations);
     } else {
       alert('Please log in as a Restaurant Admin.');
@@ -39,15 +34,13 @@ function AllReservations() {
   };
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value.toLowerCase()); // Convert search query to lowercase
+    setSearchQuery(event.target.value.toLowerCase());
   };
 
   const filteredReservations = reservations.filter((res) => {
-    const searchName = res.reservedUnder.toLowerCase(); // Normalize name for comparison
-    const searchId = res.id.toString().toLowerCase(); // Convert ID to string for comparison
-    return (
-      searchName.includes(searchQuery) || searchId.includes(searchQuery) // Check if name or ID matches search query
-    );
+    const searchName = res.reservedUnder.toLowerCase();
+    const searchId = res.id.toString().toLowerCase();
+    return searchName.includes(searchQuery) || searchId.includes(searchQuery);
   });
 
   const sortedReservations = filteredReservations.sort((a, b) => {
@@ -57,7 +50,7 @@ function AllReservations() {
     if (sortBy === 'id') {
       return sortOrder === 'asc' ? compareValueA - compareValueB : compareValueB - compareValueA;
     } else if (sortBy === 'name') {
-      const normalize = (str) => str?.trim().toLowerCase() || ''; // Normalize string for comparison
+      const normalize = (str) => str?.trim().toLowerCase() || '';
       const valueA = normalize(a.reservedUnder);
       const valueB = normalize(b.reservedUnder);
       return sortOrder === 'asc'

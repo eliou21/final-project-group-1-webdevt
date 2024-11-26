@@ -3,19 +3,17 @@ import React, { useState, useEffect } from 'react';
 function GenerateRestaurant() {
   const [reservations, setReservations] = useState([]);
   const [sortBy, setSortBy] = useState('restaurant');
-  const [sortOrder, setSortOrder] = useState('asc'); // 'asc' for ascending, 'desc' for descending
+  const [sortOrder, setSortOrder] = useState('asc');
   const [filteredRestaurant, setFilteredRestaurant] = useState('');
   const [restaurants, setRestaurants] = useState([]);
 
-  // Fetch reservations and available restaurants from localStorage
   useEffect(() => {
     const storedReservations = JSON.parse(localStorage.getItem('reservations')) || [];
     const availableRestaurants = JSON.parse(localStorage.getItem('restaurants')) || [];
     setRestaurants(availableRestaurants);
-    setReservations(storedReservations); // Show all reservations
+    setReservations(storedReservations);
   }, []);
 
-  // Handle sorting selection
   const handleSortChange = (e) => {
     setSortBy(e.target.value);
   };
@@ -28,7 +26,6 @@ function GenerateRestaurant() {
     setFilteredRestaurant(e.target.value);
   };
 
-  // Sort reservations based on selected criteria and order
   const sortedReservations = reservations
     .filter((reservation) =>
       filteredRestaurant ? reservation.restaurant === filteredRestaurant : true
@@ -46,15 +43,12 @@ function GenerateRestaurant() {
         comparison = new Date(a.time) - new Date(b.time);
       }
 
-      // Apply sorting order (ascending or descending)
       return sortOrder === 'asc' ? comparison : -comparison;
     });
 
   return (
     <div className="admin-container">
       <h1>Generate Restaurant Reservations</h1>
-
-      {/* Dropdown for restaurant filter */}
       <div className="dropdown-container">
         <label htmlFor="restaurantFilter">Filter by Restaurant: </label>
         <select id="restaurantFilter" onChange={handleRestaurantFilter}>
@@ -66,8 +60,6 @@ function GenerateRestaurant() {
           ))}
         </select>
       </div>
-
-      {/* Dropdown for sorting */}
       <div className="dropdown-container">
         <label htmlFor="sortBy">Sort by: </label>
         <select id="sortBy" onChange={handleSortChange}>
@@ -77,8 +69,6 @@ function GenerateRestaurant() {
           <option value="time">Time</option>
         </select>
       </div>
-
-      {/* Dropdown for sorting order (ascending/descending) */}
       <div className="dropdown-container">
         <label htmlFor="sortOrder">Sort Order: </label>
         <select id="sortOrder" onChange={handleSortOrderChange}>
@@ -86,8 +76,6 @@ function GenerateRestaurant() {
           <option value="desc">Descending</option>
         </select>
       </div>
-
-      {/* Table to display reservations */}
       <table>
         <thead>
           <tr>

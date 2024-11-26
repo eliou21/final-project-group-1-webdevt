@@ -4,25 +4,21 @@ function CheckIn() {
   const [restaurantName, setRestaurantName] = useState('');
   const [reservations, setReservations] = useState([]);
 
-  // Fetch restaurant data from localStorage and filter reservations based on restaurant
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     if (currentUser && currentUser.role === 'Restaurant Admin') {
       setRestaurantName(currentUser.restaurantName);
 
-      // Fetch all reservations from localStorage
       const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
 
-      // Filter reservations based on restaurantName
       const restaurantReservations = allReservations.filter((reservation) => {
         return reservation.restaurant === currentUser.restaurantName;
       });
 
-      // Set status to 'pending' if not already set
       const updatedReservations = restaurantReservations.map((reservation) => ({
         ...reservation,
-        status: reservation.status || 'pending', // Ensure status exists
+        status: reservation.status || 'pending',
       }));
 
       setReservations(updatedReservations);
@@ -31,31 +27,28 @@ function CheckIn() {
     }
   }, []);
 
-  // Handle check-in for a reservation
   const handleCheckIn = (reservationId) => {
     const updatedReservations = reservations.map((reservation) =>
       reservation.id === reservationId ? { ...reservation, status: 'Checked In' } : reservation
     );
 
     setReservations(updatedReservations);
-    updateLocalStorage(updatedReservations);  // Sync with localStorage
+    updateLocalStorage(updatedReservations);
 
     alert('Reservation checked in successfully!');
   };
 
-  // Handle check-out for a reservation
   const handleCheckOut = (reservationId) => {
     const updatedReservations = reservations.map((reservation) =>
       reservation.id === reservationId ? { ...reservation, status: 'Checked Out' } : reservation
     );
 
     setReservations(updatedReservations);
-    updateLocalStorage(updatedReservations);  // Sync with localStorage
+    updateLocalStorage(updatedReservations);
 
     alert('Reservation checked out successfully!');
   };
 
-  // Sync updated reservations to localStorage
   const updateLocalStorage = (updatedReservations) => {
     const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
     const updatedAllReservations = allReservations.map((reservation) =>
@@ -64,9 +57,8 @@ function CheckIn() {
     localStorage.setItem('reservations', JSON.stringify(updatedAllReservations));
   };
 
-  // Check the status of the reservations and log it to debug
   useEffect(() => {
-    console.log(reservations); // Debugging the reservations state
+    console.log(reservations);
   }, [reservations]);
 
   return (
@@ -111,7 +103,7 @@ function CheckIn() {
                     <button onClick={() => handleCheckOut(reservation.id)}>Check Out</button>
                   )}
                   {reservation.status === 'Checked Out' && (
-                    <button disabled>Checked Out</button> // Disable button once checked out
+                    <button disabled>Checked Out</button>
                   )}
                 </td>
               </tr>

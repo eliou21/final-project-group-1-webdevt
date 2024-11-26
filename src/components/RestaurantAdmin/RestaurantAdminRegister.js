@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function RestaurantAdminRegister() {
   const [restaurantName, setRestaurantName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
@@ -12,20 +11,17 @@ function RestaurantAdminRegister() {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    // Check if passwords match
     if (password !== confirmPassword) {
       alert('Passwords do not match.');
       return;
     }
 
-    // Email format validation
     const isValidEmail = /\S+@\S+\.\S+/.test(email);
     if (!isValidEmail) {
       alert('Invalid email format!');
       return;
     }
 
-    // Check if email already exists
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const existingUser = users.find(user => user.email === email);
 
@@ -34,20 +30,16 @@ function RestaurantAdminRegister() {
       return;
     }
 
-    // Create a new user object
     const newUser = {
       restaurantName,
       email,
-      phone,
-      password,  // For real-world use, remember to hash this
+      password,
       role: 'Restaurant Admin'
     };
 
-    // Add new user to the list and save in localStorage
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
 
-    // Navigate to the login page
     navigate('/login/restaurant-admin');
     alert('Registration successful! Please log in.');
   };
@@ -72,13 +64,6 @@ function RestaurantAdminRegister() {
           required
         />
         <input
-          type="text"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder="Phone Number"
-          required
-        />
-        <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -94,6 +79,10 @@ function RestaurantAdminRegister() {
         />
         <button type="submit">Register</button>
       </form>
+      <p>
+          Already have an account?{' '}
+          <Link to="/login/restaurant-admin">Log in</Link>
+        </p>
     </div>
     </div>
   );

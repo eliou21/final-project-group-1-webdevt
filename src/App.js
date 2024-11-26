@@ -20,8 +20,6 @@ import CustomerRegister from './components/RegularUser/CustomerRegister';
 import RestaurantDashboard from './components/Admin/RestaurantDashboard';
 import AllReservations from './components/RestaurantAdmin/AllReservations';
 import './App.css';
-import './Welcome.css';
-
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,7 +28,7 @@ function App() {
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log("Fetched currentUser from localStorage:", currentUser); // Debugging log
+    console.log("Fetched currentUser from localStorage:", currentUser);
     if (currentUser && currentUser.role) {
       setIsLoggedIn(true);
       setUserRole(currentUser.role);

@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './UserNavbar.css'; // Add styling if needed
 
 function UserNavbar({ onLogout }) {
   return (

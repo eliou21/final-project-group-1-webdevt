@@ -11,7 +11,6 @@ function ReservationForm() {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
 
-  // Load restaurants from local storage
   useEffect(() => {
     const storedRestaurants = JSON.parse(localStorage.getItem('restaurants')) || [];
     setRestaurants(storedRestaurants);
@@ -20,67 +19,49 @@ function ReservationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Log the values to verify they are being correctly filled
-    console.log('Form Values:', {
-      restaurant,
-      date,
-      time,
-      guests,
-      reservationName,
-      phone,
-      email,
-    });
-
-    // Check if all required fields are filled
     if (!restaurant || !date || !time || !guests || !reservationName || !phone) {
       alert('Please fill in all required fields.');
       return;
     }
 
-    // Validate the reservation date
     const today = new Date().toISOString().split('T')[0];
     if (date < today) {
       alert('The reservation date cannot be in the past.');
       return;
     }
 
-    // Validate the time: it should be between 08:00 AM and 10:00 PM
     const [hours, minutes] = time.split(':').map(Number);
     const selectedTime = new Date();
     selectedTime.setHours(hours, minutes, 0, 0);
 
     const startTime = new Date();
-    startTime.setHours(8, 0, 0, 0); // 08:00 AM
+    startTime.setHours(8, 0, 0, 0);
 
     const endTime = new Date();
-    endTime.setHours(22, 0, 0, 0); // 10:00 PM
+    endTime.setHours(22, 0, 0, 0);
 
     if (selectedTime < startTime || selectedTime > endTime) {
       alert('Time must be between 08:00 AM and 10:00 PM.');
       return;
     }
 
-    // Validate number of guests (ensure it's a valid number and within the range)
     const guestsNumber = parseInt(guests, 10);
     if (isNaN(guestsNumber) || guestsNumber <= 0 || guestsNumber > 20) {
       alert('Number of guests should be between 1 and 20.');
       return;
     }
 
-    // Validate phone number: ensure it's a 10-digit number
     const phonePattern = /^\d{11}$/;
     if (!phone.match(phonePattern)) {
-      alert('Please enter a valid 10-digit phone number.');
+      alert('Please enter a valid 11-digit phone number.');
       return;
     }
 
-    // Validate email if provided
     if (email && !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
       alert('Please enter a valid email address.');
       return;
     }
 
-    // Create the reservation object
     const newReservation = {
       id: Date.now(),
       restaurant,
@@ -93,14 +74,12 @@ function ReservationForm() {
       email,
     };
 
-    // Save the reservation to local storage
     const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
     allReservations.push(newReservation);
     localStorage.setItem('reservations', JSON.stringify(allReservations));
 
     alert('Reservation successfully made.');
 
-    // Reset form fields
     setReservationName('');
     setDate('');
     setTime('');
