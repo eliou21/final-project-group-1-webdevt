@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/RestoAdmin.css';
 
 function AllReservations() {
   const [reservations, setReservations] = useState([]);
@@ -6,6 +7,7 @@ function AllReservations() {
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchQuery, setSearchQuery] = useState('');
   const [restaurantName, setRestaurantName] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -37,11 +39,36 @@ function AllReservations() {
     setSearchQuery(event.target.value.toLowerCase());
   };
 
+  const handleStatusFilterChange = (event) => {
+    setStatusFilter(event.target.value);
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${month}-${day}-${year}`;
+  };
+
+  const formatTime = (timeString) => {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const hours12 = hours % 12 || 12;
+    const formattedTime = `${hours12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+    return formattedTime;
+  };
+
   const filteredReservations = reservations.filter((res) => {
     const searchName = res.reservedUnder.toLowerCase();
     const searchId = res.id.toString().toLowerCase();
-    return searchName.includes(searchQuery) || searchId.includes(searchQuery);
+    const statusMatches = statusFilter ? res.status.toLowerCase() === statusFilter : true;
+    return (
+      (searchName.includes(searchQuery) || searchId.includes(searchQuery)) && statusMatches
+    );
   });
+
+  const statusOrder = ['pending', 'checked in', 'checked out'];
 
   const sortedReservations = filteredReservations.sort((a, b) => {
     const compareValueA = a[sortBy];
@@ -56,62 +83,68 @@ function AllReservations() {
       return sortOrder === 'asc'
         ? valueA.localeCompare(valueB)
         : valueB.localeCompare(valueA);
-    } else if (sortBy === 'date' || sortBy === 'time') {
-      const parseTime = (time) => {
-        if (!time) return 0;
-        const [hours, minutes] = time.split(':').map(Number);
-        return hours * 60 + minutes;
-      };
-
-      const valueA = sortBy === 'time' ? parseTime(compareValueA) : new Date(compareValueA);
-      const valueB = sortBy === 'time' ? parseTime(compareValueB) : new Date(compareValueB);
-
+    } else if (sortBy === 'date') {
+      const valueA = new Date(a.date);
+      const valueB = new Date(b.date);
       return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
     } else if (sortBy === 'status') {
-      const valueA = (compareValueA || '').toString().trim().toLowerCase();
-      const valueB = (compareValueB || '').toString().trim().toLowerCase();
-      return sortOrder === 'asc'
-        ? valueA.localeCompare(valueB)
-        : valueB.localeCompare(valueA);
+      const statusA = statusOrder.indexOf(a.status.toLowerCase());
+      const statusB = statusOrder.indexOf(b.status.toLowerCase());
+      return sortOrder === 'asc' ? statusA - statusB : statusB - statusA;
     }
-
     return 0;
   });
 
   return (
-    <div>
-      <h1>All Reservations for {restaurantName}</h1>
+    <div className="reservations-container">
+      <h1 className="reservations-title">All Reservations for {restaurantName}</h1>
       {reservations.length === 0 ? (
-        <p>No Reservations Available.</p>
+        <p className="no-reservations-text">No Reservations Available.</p>
       ) : (
         <>
-          <div>
-            <label>Sort by: </label>
-            <select name="sortBy" onChange={handleSortChange}>
-              <option value="id">Reservation ID</option>
-              <option value="name">Name</option>
-              <option value="date">Date</option>
-              <option value="time">Time</option>
-              <option value="status">Status</option>
-            </select>
-            <label> Order: </label>
-            <select name="sortOrder" onChange={handleSortChange}>
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-          </div>
-
-          <div>
-            <label>Search (by Name or ID): </label>
+          <div className="reservations-controls">
+            <label>Search:</label>
             <input
               type="text"
               value={searchQuery}
               onChange={handleSearchChange}
+              className="reservations-search-input"
               placeholder="Search by Name or Reservation ID"
             />
+            <div className="reservations-sort-wrapper">
+              <label>Sort by:</label>
+              <select name="sortBy" className="reservations-dropdown" onChange={handleSortChange}>
+                <option value="id">Reservation ID</option>
+                <option value="name">Name</option>
+                <option value="date">Date</option>
+                <option value="status">Status</option>
+              </select>
+              <label>Order:</label>
+              <select name="sortOrder" className="reservations-dropdown" onChange={handleSortChange}>
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
+            </div>
+
+            {/* Conditionally render Filter by Status only when "Status" is selected in Sort by */}
+              {sortBy === 'status' && (
+                <div className="reservations-filter-wrapper">
+                  <label>Filter by Status:</label>
+                  <select
+                    value={statusFilter}
+                    onChange={handleStatusFilterChange}
+                    className="reservations-dropdown"
+                  >
+                    <option value="">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="checked in">Checked In</option>
+                    <option value="checked out">Checked Out</option>
+                  </select>
+                </div>
+              )}
           </div>
 
-          <table>
+          <table className="reservations-table">
             <thead>
               <tr>
                 <th>Reservation ID</th>
@@ -125,6 +158,7 @@ function AllReservations() {
                 <th>Status</th>
               </tr>
             </thead>
+
             <tbody>
               {sortedReservations.map((res) => (
                 <tr key={res.id}>
@@ -132,8 +166,8 @@ function AllReservations() {
                   <td>{res.reservedUnder}</td>
                   <td>{res.email}</td>
                   <td>{res.phone}</td>
-                  <td>{res.date}</td>
-                  <td>{res.time}</td>
+                  <td>{formatDate(res.date)}</td>
+                  <td>{formatTime(res.time)}</td>
                   <td>{res.guests}</td>
                   <td>{res.requests}</td>
                   <td>{res.status}</td>
