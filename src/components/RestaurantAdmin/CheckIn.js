@@ -135,7 +135,6 @@ function CheckIn() {
                 <option value="id">Reservation ID</option>
                 <option value="name">Name</option>
                 <option value="date">Date</option>
-                <option value="time">Time</option>
                 <option value="status">Status</option>
               </select>
               <label>Order:</label>
