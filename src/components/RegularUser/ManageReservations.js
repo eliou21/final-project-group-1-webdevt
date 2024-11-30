@@ -24,6 +24,14 @@ function ManageReservations() {
     setRestaurants(storedRestaurants);
   }, []);
 
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    const month = String(parsedDate.getMonth() + 1).padStart(2, '0');
+    const day = String(parsedDate.getDate()).padStart(2, '0');
+    const year = parsedDate.getFullYear();
+    return `${month}-${day}-${year}`;
+  };
+
   const filterByRestaurant = (restaurant) => {
     setSelectedRestaurant(restaurant);
     if (restaurant === 'All') {
@@ -81,7 +89,7 @@ function ManageReservations() {
       const filtered = updatedReservations.filter((res) => res.restaurant === selectedRestaurant);
       setFilteredReservations(filtered);
     } else {
-      setFilteredReservations(updatedReservations); 
+      setFilteredReservations(updatedReservations);
     }
 
     const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
@@ -102,7 +110,7 @@ function ManageReservations() {
       const filtered = updatedReservations.filter((res) => res.restaurant === selectedRestaurant);
       setFilteredReservations(filtered);
     } else {
-      setFilteredReservations(updatedReservations); 
+      setFilteredReservations(updatedReservations);
     }
 
     const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
@@ -165,7 +173,7 @@ function ManageReservations() {
             {filteredReservations.map((res) => (
               <tr key={res.id}>
                 <td>{res.restaurant}</td>
-                <td>{res.date}</td>
+                <td>{formatDate(res.date)}</td> {/* Display formatted date */}
                 <td>{formatTime(res.time)}</td>
                 <td>{res.guests}</td>
                 <td>
