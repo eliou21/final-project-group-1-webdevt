@@ -7,7 +7,7 @@ function CheckIn() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('id');
   const [sortOrder, setSortOrder] = useState('asc');
-  const [statusFilter, setStatusFilter] = useState('');  // New state for status filter
+  const [statusFilter, setStatusFilter] = useState('');  
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -74,7 +74,7 @@ function CheckIn() {
   };
 
   const handleStatusFilterChange = (event) => {
-    setStatusFilter(event.target.value);  // Update status filter state
+    setStatusFilter(event.target.value);  
   };
 
   const formatDate = (dateString) => {
@@ -96,17 +96,15 @@ function CheckIn() {
     return `${hours}:${minutes} ${ampm}`;
   };
 
-  // Apply search filter
   const filteredReservations = reservations.filter((res) => {
     const searchName = res.reservedUnder.toLowerCase();
     const searchId = res.id.toString().toLowerCase();
     return (
       (searchName.includes(searchQuery) || searchId.includes(searchQuery)) &&
-      (statusFilter ? res.status.toLowerCase() === statusFilter.toLowerCase() : true) // Apply status filter
+      (statusFilter ? res.status.toLowerCase() === statusFilter.toLowerCase() : true) 
     );
   });
 
-  // Apply sorting
   const sortedReservations = filteredReservations.sort((a, b) => {
     const compareValueA = a[sortBy];
     const compareValueB = b[sortBy];
@@ -186,35 +184,41 @@ function CheckIn() {
               </tr>
             </thead>
             <tbody>
-              {sortedReservations.map((res) => (
-                <tr key={res.id}>
-                  <td>{res.id}</td>
-                  <td>{res.reservedUnder}</td>
-                  <td>{res.phone}</td>
-                  <td>{res.email}</td>
-                  <td>{formatDate(res.date)}</td>
-                  <td>{formatTime(res.time)}</td>
-                  <td>{res.guests}</td>
-                  <td>{res.status}</td>
-                  <td>
-                    {res.status.toLowerCase() === 'pending' && (
-                      <button onClick={() => handleCheckIn(res.id)} className="action-button check-in-btn">
-                        Check In
-                      </button>
-                    )}
-                    {res.status.toLowerCase() === 'checked in' && (
-                      <button onClick={() => handleCheckOut(res.id)} className="action-button check-out-btn">
-                        Check Out
-                      </button>
-                    )}
-                    {res.status.toLowerCase() === 'checked out' && (
-                      <button disabled className="action-button">
-                        Checked Out
-                      </button>
-                    )}
-                  </td>
+              {sortedReservations.length === 0 ? (
+                <tr>
+                  <td colSpan="9" className="no-reservations-text">No available reservations</td>
                 </tr>
-              ))}
+              ) : (
+                sortedReservations.map((res) => (
+                  <tr key={res.id}>
+                    <td>{res.id}</td>
+                    <td>{res.reservedUnder}</td>
+                    <td>{res.phone}</td>
+                    <td>{res.email}</td>
+                    <td>{formatDate(res.date)}</td>
+                    <td>{formatTime(res.time)}</td>
+                    <td>{res.guests}</td>
+                    <td>{res.status}</td>
+                    <td>
+                      {res.status.toLowerCase() === 'pending' && (
+                        <button onClick={() => handleCheckIn(res.id)} className="action-button check-in-btn">
+                          Check In
+                        </button>
+                      )}
+                      {res.status.toLowerCase() === 'checked in' && (
+                        <button onClick={() => handleCheckOut(res.id)} className="action-button check-out-btn">
+                          Check Out
+                        </button>
+                      )}
+                      {res.status.toLowerCase() === 'checked out' && (
+                        <button disabled className="action-button">
+                          Checked Out
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </>

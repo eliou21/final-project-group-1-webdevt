@@ -15,9 +15,12 @@ function AllReservations() {
     if (currentUser && currentUser.role === 'Restaurant Admin') {
       setRestaurantName(currentUser.restaurantName);
       const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
+      
       const restaurantReservations = allReservations.filter(
         (reservation) => reservation.restaurant === currentUser.restaurantName
       );
+      
+      console.log('Fetched Reservations:', restaurantReservations); // Debugging line to check the reservations
       setReservations(restaurantReservations);
     } else {
       alert('Please log in as a Restaurant Admin.');
@@ -100,83 +103,83 @@ function AllReservations() {
   return (
     <div className="reservations-container">
       <h1 className="reservations-title">All Reservations for {restaurantName}</h1>
-      {reservations.length === 0 ? (
-        <p className="no-reservations-text">No Reservations Available.</p>
-      ) : (
-        <>
-          <div className="reservations-controls">
-            <label>Search:</label>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="reservations-search-input"
-              placeholder="Search by Name or Reservation ID"
-            />
-            <div className="reservations-sort-wrapper">
-              <label>Sort by:</label>
-              <select name="sortBy" className="reservations-dropdown" onChange={handleSortChange}>
-                <option value="id">Reservation ID</option>
-                <option value="name">Name</option>
-                <option value="date">Date</option>
-                <option value="status">Status</option>
-              </select>
-              <label>Order:</label>
-              <select name="sortOrder" className="reservations-dropdown" onChange={handleSortChange}>
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-              </select>
-            </div>
-            {sortBy === 'status' && (
-              <div className="reservations-filter-wrapper">
-                <label>Filter by Status:</label>
-                <select
-                  value={statusFilter}
-                  onChange={handleStatusFilterChange}
-                  className="reservations-dropdown"
-                >
-                  <option value="">All</option>
-                  <option value="pending">Pending</option>
-                  <option value="checked in">Checked In</option>
-                  <option value="checked out">Checked Out</option>
-                </select>
-              </div>
-            )}
+      <div className="reservations-controls">
+        <label>Search:</label>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="reservations-search-input"
+          placeholder="Search by Name or Reservation ID"
+        />
+        <div className="reservations-sort-wrapper">
+          <label>Sort by:</label>
+          <select name="sortBy" className="reservations-dropdown" onChange={handleSortChange}>
+            <option value="id">Reservation ID</option>
+            <option value="name">Name</option>
+            <option value="date">Date</option>
+            <option value="status">Status</option>
+          </select>
+          <label>Order:</label>
+          <select name="sortOrder" className="reservations-dropdown" onChange={handleSortChange}>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
+        {sortBy === 'status' && (
+          <div className="reservations-filter-wrapper">
+            <label>Filter by Status:</label>
+            <select
+              value={statusFilter}
+              onChange={handleStatusFilterChange}
+              className="reservations-dropdown"
+            >
+              <option value="">All</option>
+              <option value="pending">Pending</option>
+              <option value="checked in">Checked In</option>
+              <option value="checked out">Checked Out</option>
+            </select>
           </div>
+        )}
+      </div>
 
-          <table className="reservations-table">
-            <thead>
-              <tr>
-                <th>Reservation ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Guests</th>
-                <th>Requests</th>
-                <th>Status</th>
+      <table className="reservations-table">
+        <thead>
+          <tr>
+            <th>Reservation ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Guests</th>
+            <th>Requests</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {sortedReservations.length === 0 ? (
+            <tr>
+              <td colSpan="9" className="no-reservations-text">No Reservations Available.</td>
+            </tr>
+          ) : (
+            sortedReservations.map((res) => (
+              <tr key={res?.id || Math.random()}>
+                <td>{res?.id || 'N/A'}</td>
+                <td>{res?.reservedUnder || 'N/A'}</td>
+                <td>{res?.email || 'N/A'}</td>
+                <td>{res?.phone || 'N/A'}</td>
+                <td>{formatDate(res?.date)}</td>
+                <td>{formatTime(res?.time)}</td>
+                <td>{res?.guests || 'N/A'}</td>
+                <td>{res?.requests || 'N/A'}</td>
+                <td>{res?.status || 'Pending'}</td>
               </tr>
-            </thead>
-
-            <tbody>
-              {sortedReservations.map((res) => (
-                <tr key={res?.id || Math.random()}>
-                  <td>{res?.id || 'N/A'}</td>
-                  <td>{res?.reservedUnder || 'N/A'}</td>
-                  <td>{res?.email || 'N/A'}</td>
-                  <td>{res?.phone || 'N/A'}</td>
-                  <td>{formatDate(res?.date)}</td>
-                  <td>{formatTime(res?.time)}</td>
-                  <td>{res?.guests || 'N/A'}</td>
-                  <td>{res?.requests || 'N/A'}</td>
-                  <td>{res?.status || 'Pending'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

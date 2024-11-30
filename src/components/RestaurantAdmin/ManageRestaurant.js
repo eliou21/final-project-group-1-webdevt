@@ -5,7 +5,7 @@ function ManageRestaurant() {
   const [reservations, setReservations] = useState([]);
   const [restaurantName, setRestaurantName] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('id'); 
+  const [sortBy, setSortBy] = useState('id');
   const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
@@ -87,7 +87,7 @@ function ManageRestaurant() {
     let hour12 = Number(hour);
     const suffix = hour12 >= 12 ? 'PM' : 'AM';
     if (hour12 > 12) hour12 -= 12;
-    if (hour12 === 0) hour12 = 12; 
+    if (hour12 === 0) hour12 = 12;
     return `${hour12}:${minute} ${suffix}`;
   };
 
@@ -95,7 +95,7 @@ function ManageRestaurant() {
     <div className="reservations-container">
       <h1 className="reservations-title">Reservations for {restaurantName}</h1>
       {reservations.length === 0 ? (
-        <p className="no-reservations-text">No reservations found for your restaurant.</p>
+        <p className="no-reservations-text">No reservations available.</p>
       ) : (
         <>
           <div className="reservations-controls">
