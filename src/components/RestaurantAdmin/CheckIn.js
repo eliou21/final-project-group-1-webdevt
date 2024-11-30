@@ -21,7 +21,7 @@ function CheckIn() {
 
       const updatedReservations = restaurantReservations.map((reservation) => ({
         ...reservation,
-        status: reservation.status || 'pending',
+        status: reservation.status?.charAt(0).toUpperCase() + reservation.status?.slice(1) || 'Pending',
       }));
 
       setReservations(updatedReservations);
@@ -171,17 +171,17 @@ function CheckIn() {
                   <td>{res.guests}</td>
                   <td>{res.status}</td>
                   <td>
-                    {res.status === 'Pending' && (
+                    {res.status.toLowerCase() === 'pending' && (
                       <button onClick={() => handleCheckIn(res.id)} className="action-button check-in-btn">
                         Check In
                       </button>
                     )}
-                    {res.status === 'Checked In' && (
+                    {res.status.toLowerCase() === 'checked in' && (
                       <button onClick={() => handleCheckOut(res.id)} className="action-button check-out-btn">
                         Check Out
                       </button>
                     )}
-                    {res.status === 'Checked Out' && (
+                    {res.status.toLowerCase() === 'checked out' && (
                       <button disabled className="action-button">
                         Checked Out
                       </button>
