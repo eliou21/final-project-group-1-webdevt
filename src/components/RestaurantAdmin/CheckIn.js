@@ -7,6 +7,7 @@ function CheckIn() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('id');
   const [sortOrder, setSortOrder] = useState('asc');
+  const [statusFilter, setStatusFilter] = useState('');  // New state for status filter
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -72,6 +73,10 @@ function CheckIn() {
     }
   };
 
+  const handleStatusFilterChange = (event) => {
+    setStatusFilter(event.target.value);  // Update status filter state
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -91,12 +96,17 @@ function CheckIn() {
     return `${hours}:${minutes} ${ampm}`;
   };
 
+  // Apply search filter
   const filteredReservations = reservations.filter((res) => {
     const searchName = res.reservedUnder.toLowerCase();
     const searchId = res.id.toString().toLowerCase();
-    return searchName.includes(searchQuery) || searchId.includes(searchQuery);
+    return (
+      (searchName.includes(searchQuery) || searchId.includes(searchQuery)) &&
+      (statusFilter ? res.status.toLowerCase() === statusFilter.toLowerCase() : true) // Apply status filter
+    );
   });
 
+  // Apply sorting
   const sortedReservations = filteredReservations.sort((a, b) => {
     const compareValueA = a[sortBy];
     const compareValueB = b[sortBy];
@@ -108,6 +118,11 @@ function CheckIn() {
       const valueA = normalize(a.reservedUnder);
       const valueB = normalize(b.reservedUnder);
       return sortOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    } else if (sortBy === 'status') {
+      const statusOrder = ['Pending', 'Checked In', 'Checked Out'];
+      const indexA = statusOrder.indexOf(a.status);
+      const indexB = statusOrder.indexOf(b.status);
+      return sortOrder === 'asc' ? indexA - indexB : indexB - indexA;
     }
 
     return 0;
@@ -143,6 +158,18 @@ function CheckIn() {
                 <option value="desc">Descending</option>
               </select>
             </div>
+            {/* Add status filter dropdown */}
+            <label className="status-label">Status Filter:</label>
+            <select
+              value={statusFilter}
+              onChange={handleStatusFilterChange}
+              className="reservations-dropdown"
+            >
+              <option value="">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Checked In">Checked In</option>
+              <option value="Checked Out">Checked Out</option>
+            </select>
           </div>
           <table className="reservations-table">
             <thead>

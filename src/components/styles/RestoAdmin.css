@@ -57,6 +57,10 @@
     flex-wrap: wrap; 
 }
 
+.status-label{
+    margin-left: 1150px;
+}
+
 /* Dropdowns */
 .reservations-dropdown {
     width: 150px;
