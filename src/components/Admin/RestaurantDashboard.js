@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import '../styles/Admin.css';
 
 function RestaurantDashboard() {
   const [restaurants, setRestaurants] = useState([]);
@@ -41,7 +42,7 @@ function RestaurantDashboard() {
         setRestaurants(updatedRestaurants);
         localStorage.setItem('restaurants', JSON.stringify(updatedRestaurants));
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file); 
     }
   };
 
@@ -53,7 +54,7 @@ function RestaurantDashboard() {
   };
 
   const handleFileButtonClick = (index) => {
-    fileInputRefs.current[index].click();
+    fileInputRefs.current[index].click(); 
   };
 
   const handleAddRestaurant = () => {
@@ -71,18 +72,24 @@ function RestaurantDashboard() {
   };
 
   const handleRemoveRestaurant = (index) => {
+    if (restaurants.length <= 4) {
+      alert('You must have at least 4 restaurants in the system.');
+      return;
+    }
+
     const updatedRestaurants = restaurants.filter((_, i) => i !== index);
     setRestaurants(updatedRestaurants);
     localStorage.setItem('restaurants', JSON.stringify(updatedRestaurants));
   };
 
   return (
-    <div>
-      <h1>Restaurant Dashboard</h1>
-      <button onClick={handleAddRestaurant} style={{ marginBottom: '20px' }}>
+    <div className="dashboard-dash">
+      <h1 className="dashboard-title">Restaurant Dashboard</h1>
+      <button className="action-button-add" onClick={handleAddRestaurant} style={{ marginBottom: '20px' }}>
         Add Restaurant
       </button>
-      <table>
+
+      <table className="dashboard-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -95,9 +102,10 @@ function RestaurantDashboard() {
         </thead>
         <tbody>
           {restaurants.map((restaurant, index) => (
-            <tr key={index}>
+            <tr key={index} className="dashboard-row">
               <td>
                 <input
+                  className="input-field"
                   type="text"
                   value={restaurant.name}
                   onChange={(e) => handleChange(index, 'name', e.target.value)}
@@ -105,6 +113,7 @@ function RestaurantDashboard() {
               </td>
               <td>
                 <input
+                  className="input-field"
                   type="text"
                   value={restaurant.location}
                   onChange={(e) => handleChange(index, 'location', e.target.value)}
@@ -112,6 +121,7 @@ function RestaurantDashboard() {
               </td>
               <td>
                 <input
+                  className="input-field-capacity-field"
                   type="number"
                   value={restaurant.capacity}
                   onChange={(e) => handleChange(index, 'capacity', e.target.value)}
@@ -119,38 +129,58 @@ function RestaurantDashboard() {
               </td>
               <td>
                 <textarea
+                  className="textarea-field"
                   value={restaurant.description}
                   onChange={(e) => handleChange(index, 'description', e.target.value)}
                 />
               </td>
               <td>
                 {restaurant.image ? (
-                  <img src={restaurant.image} alt={restaurant.name} style={{ width: '100px' }} />
+                  <img className="restaurant-image" src={restaurant.image} alt={restaurant.name} />
                 ) : (
-                  <p>No Image</p>
+                  <p className="no-image-text">No Image</p>
                 )}
               </td>
               <td>
                 {!restaurant.image && (
-                  <button onClick={() => handleFileButtonClick(index)} style={{ marginRight: '10px' }}>
-                    Choose File
-                  </button>
+                  <div className="button-container">
+                    <button
+                      className="action-button"
+                      onClick={() => handleFileButtonClick(index)}
+                      style={{ marginRight: '10px' }}
+                    >
+                      Choose File
+                    </button>
+                  </div>
                 )}
                 {restaurant.image && (
-                  <button onClick={() => handleImageRemove(index)} style={{ marginRight: '10px' }}>
-                    Remove Image
-                  </button>
+                  <div className="button-container">
+                    <button
+                      className="action-button remove-img"
+                      onClick={() => handleImageRemove(index)}
+                      style={{ marginRight: '10px' }}
+                    >
+                      Remove Image
+                    </button>
+                  </div>
                 )}
+                {/* Hidden file input */}
                 <input
                   type="file"
                   ref={(el) => (fileInputRefs.current[index] = el)}
                   onChange={(e) => handleImageChange(index, e)}
                   accept="image/*"
-                  style={{ display: 'none' }}
+                  className="file-input"
                 />
-                <button onClick={() => handleRemoveRestaurant(index)} style={{ marginLeft: '10px' }}>
-                  Remove Restaurant
-                </button>
+                <div className="button-container">
+                  <button
+                    className="action-button remove-button"
+                    onClick={() => handleRemoveRestaurant(index)}
+                    style={{ marginLeft: '10px' }}
+                  >
+                    Remove Restaurant
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
