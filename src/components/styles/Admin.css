@@ -1,0 +1,243 @@
+/* Dashboard Styles */
+body{
+    background-color: #dbc096;
+    background-image: url(/src/components/image/a_bg.jpg);
+ }
+
+ .dashboard-dash, .dashboard {
+    font-family: 'Arial', sans-serif;
+    margin: 20px auto;
+    margin-top: 50px !important;
+    padding: 20px;
+    max-width: 1400px;
+    background-color: #ffffffa4;
+  }
+
+  .dashboard {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+ 
+   .dashboard-title {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #2c1c10;
+    margin-bottom: 30px;
+    padding-bottom: 10px; 
+    border-bottom: 4px solid #2c1c10; 
+  }
+
+   /* Table Styling */
+  .dashboard-table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin-top: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+   .dashboard-table th {
+    padding: 12px 15px;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+
+  .dashboard-table th:nth-child(odd) {
+    background-color: #c68a50;
+  }
+
+   .dashboard-table th:nth-child(even) {
+    background-color: #4c330a; 
+  }
+
+   .dashboard-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #fff;
+    border: 1px solid #ddd;
+  }
+
+   .dashboard-row:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+   .dashboard-row:hover {
+    background-color: #e7e7e7;
+  }
+
+   /* Input Fields */
+  .input-field, .textarea-field {
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .input-field-capacity-field{
+    width: 50px;
+  }
+
+   .textarea-field {
+    resize: vertical;
+    height: 60px;
+  }
+
+   /* Image Styles */
+  .restaurant-image {
+    align-items: center;
+    max-width: 250px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+   .no-image-text {
+    color: #010101;
+    font-size: 14px;
+    text-align: center;
+  }
+
+   /* Buttons */
+  .action-button {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 8px 12px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 10px;
+  }
+
+  .action-button-add{
+    padding: 8px 12px;
+    background-color:#2b842f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 250px;
+  }
+
+  .action-button-add:hover{
+    background-color: #fb4313;
+  }
+
+   .action-button:hover {
+    background-color: #ef5c12;
+    transform: scale(1.05);
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px; 
+  }
+
+  .action-button {
+    margin-right: 10px;
+  }
+
+  .remove-button {
+    margin-left: 10px;
+  }
+
+  .action-button.remove-img{
+    width: 160px;
+    margin-left: 8px;
+    background-color: #da662c;
+  }
+
+   .action-button.remove-button {
+    background-color: #f21f1b;
+  }
+
+   .action-button.remove-button:hover {
+    background-color: #b00f0f;
+  }
+
+   /* Hidden File Input */
+  .file-input {
+    display: none;
+  }
+
+   /* Dropdown Container Styling */
+   .dropdown-container {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-wrap: wrap;
+    margin: 20px 0; 
+}
+ 
+  /* Label Styling */
+  .dropdown-container label {
+      font-size: 16px;
+      color: #2c1c10;
+      font-weight: bold;
+      margin-left: 20px;
+  }
+
+  .sorting {
+    margin-left: 180px;
+    display: flex;
+    gap: 3px; 
+    flex-wrap: wrap; 
+  }
+
+  .sorting label{
+    margin-top: 13px;
+  }
+
+  /* Dropdown (Select) Styling */
+  .input-field {
+      width: 200px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      background-color: #fff;
+      color: #333;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      margin-right: 30px;
+      margin-left: 15px;
+  }
+
+  /* Dropdown Hover and Focus States */
+  .input-field:hover {
+      border-color: #fba304; 
+  }
+
+  .input-field:focus {
+      border-color: #fb4313;
+      box-shadow: 0 0 4px rgba(251, 67, 19, 0.5);
+      outline: none;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dashboard-table {
+      font-size: 14px;
+    }
+     .dashboard-table th, .dashboard-table td {
+      padding: 10px;
+    }
+     .input-field, .textarea-field {
+      font-size: 13px;
+    }
+     .action-button {
+      font-size: 13px;
+      padding: 6px 10px;
+    }
+  }

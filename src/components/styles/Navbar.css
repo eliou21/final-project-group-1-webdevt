@@ -1,0 +1,132 @@
+/* General Navbar Styles */
+.user-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #241c1c;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;   
+    z-index: 1000;
+    height: 40px;  
+  }
+  
+  
+  /* Navbar Container */
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  
+  /* Title Styles */
+  .navbar-title {
+    margin-left: 1rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    font-family: 'Balsamiq Sans';
+  }
+  
+  
+  /* Navbar Links */
+  .navbar-links {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  
+  
+  }
+  
+  
+  .navbar-links li {
+    margin: 0 15px;
+  }
+  
+  
+  .nav-link {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #fff; 
+    transition: color 0.3s ease;
+  }
+  
+  
+  .nav-link:hover {
+    color: #fb4313; 
+  }
+  
+  
+  .nav-link.active {
+    color: #fb4313;
+    font-weight: bold;
+  }
+  
+  
+  /* Logout Button */
+  .logout-container {
+    margin-right: auto; 
+  }
+  
+  
+  .logout-button {
+    display: flex;
+    align-items: center; 
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    color: #fba304; 
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  
+  .logout-button:hover {
+    color: #ff0019; 
+  }
+  
+  
+  .logout-icon {
+    margin-right: 5px; 
+    font-size: 1.2rem;
+    display: inline-block; 
+  }
+  
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .navbar-title {
+      font-size: 1.2rem;
+    }
+  
+  
+    .nav-link {
+      font-size: 0.9rem;
+    }
+  
+  
+    .logout-button {
+      font-size: 0.9rem;
+    }
+  }
+  
+  
+  
+  
+  .resto-navbar-title{
+    font-family: 'Times New Roman', Times, serif;
+    color: #fff;
+    font-size: 20px;
+  }
+  
+  
+  .admin-navbar-title{
+    font-family: 'Times New Roman', Times, serif;
+    color: #fff;
+    font-size: 20px;
+  }
+  

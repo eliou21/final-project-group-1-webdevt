@@ -1,0 +1,232 @@
+/*----------------------RESTO ADMIN--------------------*/
+/* Container Styles */
+.reservations-container {
+    font-family: 'Arial', sans-serif;
+    margin: 20px auto;
+    margin-top: 50px;
+    padding: 20px;
+    max-width: 1400px;
+    background-color: #ffffffa4;
+}
+
+/* Title Styles */
+.reservations-title {
+    text-align: center;
+    font-size: 40px;
+    color: #2c1c10;
+    margin-bottom: 25px;
+    margin-top: 5px;
+    margin-bottom: 40px; 
+    padding-bottom: 10px; 
+    border-bottom: 4px solid #2c1c10; 
+}
+
+/* Controls Styling */
+.reservations-controls {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #2c1c10;
+    flex-wrap: wrap;
+}
+
+/* Search Input */
+.reservations-search-input {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    display: block;
+    margin-right: 575px;
+}
+
+.reservations-search-input:hover {
+    border-color: #fba304;
+    box-shadow: 0 0 4px rgba(251, 67, 19, 0.5);
+}
+
+/* Sort Dropdowns Wrapper */
+.reservations-sort-wrapper {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap; 
+}
+
+/* Dropdowns */
+.reservations-dropdown {
+    width: 150px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+}
+
+.reservations-dropdown:hover,
+.reservations-dropdown:focus {
+    border-color: #fba304;
+    box-shadow: 0 0 4px rgba(251, 67, 19, 0.5);
+}
+
+.reservations-filter-wrapper {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.reservations-filter-wrapper label{
+    margin-right: 10px;
+    margin-top: 7px;
+    margin-left: 975px;
+}
+
+/* Table Styling */
+.reservations-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; 
+    text-align: center; 
+}
+
+.reservations-table th,
+.reservations-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.reservations-table th {
+    padding: 12px;
+    color: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.reservations-table th:nth-child(odd) {
+    background-color: #c68a50; 
+}
+
+.reservations-table th:nth-child(even) {
+    background-color: #4c330a; 
+}
+
+.reservations-table td {
+    padding: 12px;
+    border: 1px solid #ddd; 
+    text-align: center; 
+}
+
+.reservations-table tr:hover {
+    background-color: #efefee; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+
+.reservations-table tr {
+    transition: background-color 0.3s ease;
+}
+
+
+.reservations-table tr:focus-within {
+    background-color: #f9e1c9;
+}
+
+.no-reservations-text {
+    text-align: center; 
+    font-size: 16px;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reservations-container {
+        padding: 10px;
+    }
+
+    .reservations-controls {
+        flex-direction: column; 
+        gap: 15px;
+    }
+
+    .reservations-search-input {
+        width: 100%;
+    }
+
+    .reservations-sort-wrapper {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .reservations-dropdown {
+        width: 100%;
+    }
+
+    .reservations-table th,
+    .reservations-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Buttons */
+.action-button {
+  padding: 8px 12px;
+  color: #ffffff !important;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.check-in-btn {
+  background-color: #fba304 !important;
+}
+
+.check-in-btn:hover {
+  background-color: #e74d00 !important; 
+  transform: scale(1.05);
+}
+
+.check-out-btn {
+  background-color: #51322f !important;
+}
+
+.check-out-btn:hover {
+  background-color: #b04339 !important;
+  transform: scale(1.05);
+}
+
+.action-button:disabled {
+  background-color: #f0f0f0 !important; 
+  color: #aaa !important;
+  cursor: not-allowed; 
+  border: 1px solid #ddd; 
+}
+
+.action-button:disabled:hover {
+  background-color: #f0f0f0 !important; 
+  transform: none; 
+}
+
+.cancel-btn {
+  background-color: #ad0e0e !important; 
+  display: block; 
+  margin: 0 auto; 
+}
+
+.cancel-btn:hover {
+  background-color: #fa4c4c !important; 
+  transform: scale(1.05);
+}
