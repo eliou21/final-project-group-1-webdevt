@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/ReservationForm.css';
+import reservation_img from '../image/reservation.jpg';
 
 function ReservationForm() {
   const [reservationName, setReservationName] = useState('');
@@ -91,104 +93,102 @@ function ReservationForm() {
   };
 
   const handleRestaurantChange = (e) => {
-    const selectedRestaurantName = e.target.value;
-    setRestaurant(selectedRestaurantName);
+    setRestaurant(e.target.value);
   };
 
   return (
-    <div>
-      <h2>Make a Reservation</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Reservation Name </label>
-          <input
-            type="text"
-            value={reservationName}
-            onChange={(e) => setReservationName(e.target.value)}
-            placeholder="Enter your name"
-            required
-          />
-        </div>
-
-        <div>
-          <label>Restaurant </label>
-          <select
-            value={restaurant}
-            onChange={handleRestaurantChange}
-            required
-          >
-            <option value="">Select Restaurant </option>
-            {restaurants.map((restaurant, index) => (
-              <option key={index} value={restaurant.name}>
-                {restaurant.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label>Date </label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Time </label>
-          <input
-            type="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Number of guests </label>
-          <input
-            type="number"
-            value={guests}
-            onChange={(e) => setGuests(e.target.value)}
-            placeholder="Number of guests"
-            required
-          />
-        </div>
-
-        <div>
-          <label>Phone Number </label>
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Enter your phone number"
-            required
-          />
-        </div>
-
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email (optional)"
-          />
-        </div>
-
-        <div>
-          <label>Additional Requests </label>
-          <textarea
-            value={requests}
-            onChange={(e) => setRequests(e.target.value)}
-            placeholder="Any special requests? (optional)"
-          />
-        </div>
-
-        <button type="submit">Reserve</button>
-      </form>
+    <div className="reservation-container">
+      <div className="image-section">
+        <img
+          src={reservation_img}
+          alt="Reserved Table"
+          className="reservation-image"
+        />
+      </div>
+      <div className="form-section">
+        <h2>Make a Reservation</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Reservation Name</label>
+            <input
+              type="text"
+              value={reservationName}
+              onChange={(e) => setReservationName(e.target.value)}
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Restaurant</label>
+            <select value={restaurant} onChange={handleRestaurantChange} required>
+              <option value="">Select Restaurant</option>
+              {restaurants.map((restaurant, index) => (
+                <option key={index} value={restaurant.name}>
+                  {restaurant.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="date-time-container">
+            <div className="form-group">
+              <label>Date</label>
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Time</label>
+              <input
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label>Number of Guests</label>
+            <input
+              type="number"
+              value={guests}
+              onChange={(e) => setGuests(e.target.value)}
+              placeholder="Number of guests"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Phone Number</label>
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Enter your phone number"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email (optional)"
+            />
+          </div>
+          <div className="form-group">
+            <label>Additional Requests</label>
+            <textarea
+              value={requests}
+              onChange={(e) => setRequests(e.target.value)}
+              placeholder="Any special requests? (optional)"
+            />
+          </div>
+          <button type="submit">Reserve</button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/Reservations.css';
 
 function ManageReservations() {
   const [reservations, setReservations] = useState([]);
@@ -70,15 +71,25 @@ function ManageReservations() {
       alert('Number of guests must be between 1 and 20.');
       return;
     }
+
     const updatedReservations = reservations.map((res) =>
       res.id === currentReservation.id ? { ...res, ...currentReservation } : res
     );
     setReservations(updatedReservations);
+
+    if (selectedRestaurant !== 'All') {
+      const filtered = updatedReservations.filter((res) => res.restaurant === selectedRestaurant);
+      setFilteredReservations(filtered);
+    } else {
+      setFilteredReservations(updatedReservations); 
+    }
+
     const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
     const updatedAllReservations = allReservations.map((res) =>
       res.id === currentReservation.id ? { ...res, ...currentReservation } : res
     );
     localStorage.setItem('reservations', JSON.stringify(updatedAllReservations));
+
     setIsEditing(false);
     alert('Reservation updated successfully!');
   };
@@ -86,9 +97,18 @@ function ManageReservations() {
   const handleCancel = (id) => {
     const updatedReservations = reservations.filter((res) => res.id !== id);
     setReservations(updatedReservations);
+
+    if (selectedRestaurant !== 'All') {
+      const filtered = updatedReservations.filter((res) => res.restaurant === selectedRestaurant);
+      setFilteredReservations(filtered);
+    } else {
+      setFilteredReservations(updatedReservations); 
+    }
+
     const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
     const updatedAllReservations = allReservations.filter((res) => res.id !== id);
     localStorage.setItem('reservations', JSON.stringify(updatedAllReservations));
+
     alert(`Reservation ID: ${id} has been canceled.`);
   };
 
@@ -100,36 +120,38 @@ function ManageReservations() {
   };
 
   return (
-    <div className="regular-user-container">
-      <h1>Manage Reservations</h1>
-      <div className="filter-options">
-        <label htmlFor="restaurantFilter">Filter by Restaurant:</label>
-        <select
-          id="restaurantFilter"
-          onChange={(e) => filterByRestaurant(e.target.value)}
-          value={selectedRestaurant}
-        >
-          <option value="All">All</option>
-          {restaurants.map((restaurant, index) => (
-            <option key={index} value={restaurant.name}>
-              {restaurant.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="sorting-options">
-        <label htmlFor="sortDate">Sort by Date:</label>
-        <select
-          id="sortDate"
-          onChange={() => sortReservations('date')}
-          value={sortConfig.key === 'date' ? sortConfig.direction : 'asc'}
-        >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
+    <div className="manage-reservations-container">
+      <h1 className="manage-reservations-title">Manage Reservations</h1>
+      <div className="filter-sort-container">
+        <div className="filter-options-container">
+          <label htmlFor="restaurantFilter">Filter by Restaurant:</label>
+          <select
+            id="restaurantFilter"
+            onChange={(e) => filterByRestaurant(e.target.value)}
+            value={selectedRestaurant}
+          >
+            <option value="All">All</option>
+            {restaurants.map((restaurant, index) => (
+              <option key={index} value={restaurant.name}>
+                {restaurant.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="sorting-options-container">
+          <label htmlFor="sortDate">Sort by Date:</label>
+          <select
+            id="sortDate"
+            onChange={() => sortReservations('date')}
+            value={sortConfig.key === 'date' ? sortConfig.direction : 'asc'}
+          >
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
       </div>
       {filteredReservations.length > 0 ? (
-        <table>
+        <table className="reservations-table">
           <thead>
             <tr>
               <th>Restaurant</th>
@@ -147,21 +169,21 @@ function ManageReservations() {
                 <td>{formatTime(res.time)}</td>
                 <td>{res.guests}</td>
                 <td>
-                  <button onClick={() => handleEditClick(res)}>Update</button>
-                  <button onClick={() => handleCancel(res.id)}>Cancel</button>
+                  <button onClick={() => handleEditClick(res)} className="update-button">Update</button>
+                  <button onClick={() => handleCancel(res.id)} className="cancel-button">Cancel</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <p>No reservations found.</p>
+        <p className="no-reservations-message">No reservations found.</p>
       )}
       {isEditing && currentReservation && (
-        <div className="modal">
-          <form onSubmit={handleUpdate}>
-            <h2>Edit Reservation</h2>
-            <label>
+        <div className="reservation-modal">
+          <form onSubmit={handleUpdate} className="reservation-form">
+            <h2 className="modal-title">Edit Reservation</h2>
+            <label className="form-label">
               Time:
               <input
                 type="time"
@@ -170,9 +192,10 @@ function ManageReservations() {
                   setCurrentReservation({ ...currentReservation, time: e.target.value })
                 }
                 required
+                className="time-input"
               />
             </label>
-            <label>
+            <label className="form-label">
               Number of Guests:
               <input
                 type="number"
@@ -181,19 +204,21 @@ function ManageReservations() {
                   setCurrentReservation({ ...currentReservation, guests: e.target.value })
                 }
                 required
+                className="guests-input"
               />
             </label>
-            <label>
+            <label className="form-label">
               Additional Requests:
               <textarea
                 value={currentReservation.requests || ''}
                 onChange={(e) =>
                   setCurrentReservation({ ...currentReservation, requests: e.target.value })
                 }
+                className="requests-textarea"
               />
             </label>
-            <button type="submit">Save Changes</button>
-            <button type="button" onClick={() => setIsEditing(false)}>
+            <button type="submit" className="save-button">Save Changes</button>
+            <button type="button" onClick={() => setIsEditing(false)} className="cancel-button">
               Cancel
             </button>
           </form>
