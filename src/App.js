@@ -28,12 +28,12 @@ function App() {
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log("Fetched currentUser from localStorage:", currentUser);
     if (currentUser && currentUser.role) {
       setIsLoggedIn(true);
       setUserRole(currentUser.role);
     } else {
       setIsLoggedIn(false);
+      setUserRole('');
     }
   }, []);
 
@@ -42,7 +42,7 @@ function App() {
     setUserRole(role);
     localStorage.setItem('currentUser', JSON.stringify({ role }));
     if (role === 'Admin') navigate('/admin/dashboard');
-    else if (role === 'Restaurant Admin') navigate('/restaurant-admin/check-in');
+    else if (role === 'Restaurant Admin') navigate('/restaurant-admin/all-reservations');
     else navigate('/user/browse');
   };
 
@@ -61,10 +61,27 @@ function App() {
       {isLoggedIn && userRole === 'Restaurant Admin' && <AdminRestaurantNavbar onLogout={handleLogout} />}
 
       <Routes>
-        {/* Welcome Page */}
-        <Route path="/" element={<Welcome />} />
+        {/* Root Route */}
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? (
+              <Navigate
+                to={
+                  userRole === 'Admin'
+                    ? '/admin/dashboard'
+                    : userRole === 'Restaurant Admin'
+                    ? '/restaurant-admin/all-reservations'
+                    : '/user/browse'
+                }
+              />
+            ) : (
+              <Welcome />
+            )
+          }
+        />
 
-        {/* Login and Registration for each role */}
+        {/* Login and Registration */}
         <Route path="/login/customer" element={<CustomerLogin onLogin={handleLogin} />} />
         <Route path="/register/customer" element={<CustomerRegister />} />
         <Route path="/login/admin" element={<AdminLogin onLogin={handleLogin} />} />
