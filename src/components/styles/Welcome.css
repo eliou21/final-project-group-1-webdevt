@@ -1,0 +1,290 @@
+/* General reset */
+body{
+    background: #e8e5dd;
+}
+
+.welcome{
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url(/src/components/image/wc_bg.jpg);
+    background-size: cover;     
+    background-position: center; 
+    background-repeat: no-repeat; 
+   }
+   
+   
+   /* Container */
+   .container {
+    width: 100%;
+    max-width: 1400px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+  
+   
+   
+   /* Modal */
+   .modal {
+    background: rgb(208, 181, 138);
+    border-radius: 15px;
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 100%;
+    width: 900px;
+   }
+   
+   
+   /* Modal Container */
+   .modal-container {
+    display: flex;
+    width: 100%;
+   }
+   
+   
+   /* Left Section */
+   .modal-left {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+   }
+   
+   
+   .modal-left .welcome-logo {
+    width: 150px;
+    margin-bottom: 20px;
+   }
+   
+   
+   .modal-title {
+    font-size: 28px;
+    color:#2c1c10;
+    margin-bottom: 10px;
+   }
+   
+   
+   .modal-desc {
+    font-size: 16px;
+    color: #2c1c10;
+    margin-bottom: 30px;
+   }
+   
+   
+   /* Role Buttons */
+   .input-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+   }
+   
+   
+   .role-btn {
+    background: #6200ee;
+    color: #fff2e8;
+    border: none;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+   }
+   
+   
+   .role-btn:hover {
+    background: #3700b3;
+    transform: scale(1.05);
+   }
+   
+   
+   .customer-btn {
+    background: #c38108;
+   }
+   
+   
+   .customer-btn:hover {
+    background: #ffb429;
+   }
+   
+   
+   .restaurant-btn {
+    background: #e74d00;
+   }
+   
+   
+   .restaurant-btn:hover {
+    background: #ff6c22;
+   }
+   
+   
+   .admin-btn {
+    background: #51322f;
+   }
+   
+   
+   .admin-btn:hover {
+    background: #5d403d;
+   }
+   
+   
+   /* Right Section */
+   .modal-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/src/components/image/resto1.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 0; 
+   }
+   
+   
+   .modal-right .welcome-logo {
+    max-width: 100%; 
+    max-height: 100%; 
+    width: auto;
+    height: auto;
+    object-fit: cover;
+   }
+   
+   
+   /* Customer, Admin, and Restaurant Login and Register */
+   .background {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url(/src/components/image/wc_bg.jpg);
+    background-size: cover;     
+    background-position: center; 
+    background-repeat: no-repeat; 
+   }
+
+   
+   .form-form {
+    height: 520px;
+    width: 400px;
+    background-color: rgba(174, 143, 92, 0.936);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px;
+    z-index: 1;
+  }
+  
+
+   .input-box{
+    width: 379px;
+   }
+
+   .select-resto{
+    width: 400px;
+   }
+   
+   
+   .reg{
+    height: 620px;
+   }
+   
+   
+   .form-form * {
+    font-family: 'Poppins', sans-serif;
+    color: #2c1c10;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+   }
+   
+   
+   .form-form h3 {
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 42px;
+    text-align: center;
+    margin-top: 10px;
+    border-bottom: 2px solid #2c1c10; 
+    padding-bottom: 10px; 
+   }
+   
+   
+   .label-l {
+    display: block;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+   }
+   
+   
+   .input-put{
+    display: block;
+    height: 50px;
+    width: 400px;
+    background-color: rgba(202, 202, 202, 0.721)!important;
+    border-radius: 3px;
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: 300;
+   }
+   
+   
+   ::placeholder {
+    color: #424242;
+   }
+   
+   
+   .button-btn {
+    margin-top: 20px;
+    width: 100%;
+    display: block;
+    background-color: #7e4d24;
+    color: #2c1c10;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-items: center ;
+   }
+
+   .button-btn.login{
+    margin-top: 40px;
+   }
+
+   .button-btn.back{
+    background-color: #926845;
+   }
+   
+   .button-btn:hover {
+    background-color: #eae0d4;
+   }
+   
+   
+   .link-hov {
+    transition: color 0.3s ease;
+   }
+   
+   
+   .link-hov:hover {
+    color: #623f23; 
+   }
+   

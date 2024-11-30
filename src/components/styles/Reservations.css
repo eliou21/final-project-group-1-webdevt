@@ -1,0 +1,218 @@
+/* Container */
+.manage-reservations-container {
+    font-family: 'Poppins', sans-serif;
+    max-width: 1100px;
+    margin-top: 50px;
+    margin-left: 270px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffffa4;
+  }
+  
+  /* Title */
+  .manage-reservations-title {
+    font-size: 40px;
+    font-weight: 500;
+    color: #2c1c10;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 40px; 
+    padding-bottom: 10px;
+    border-bottom: 4px solid #2c1c10; 
+}
+
+  
+  /* Filter and Sorting */
+.filter-sort-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 12px; 
+  }
+  
+  .filter-options-container,
+  .sorting-options-container {
+    flex: 1; 
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-options-container label,
+  .sorting-options-container label {
+    margin-right: 8px; 
+    font-size: 0.9rem;
+    color: #2c1c10;
+    font-weight: bold;
+    width: 150px;
+  }
+  
+  .filter-options-container select,
+  .sorting-options-container select {
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #333;
+    outline: none;
+    flex-grow: 1; 
+  }
+  
+  
+  /* Table */
+  .reservations-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .reservations-table th,
+  .reservations-table td {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
+  }
+  
+  .reservations-table th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  .reservations-table tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+
+  .reservations-table td {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
+  }
+  
+  .reservations-table td:last-child {
+    width: 1%; 
+    white-space: nowrap; 
+  }
+  
+  /* Buttons */
+    .update-button,
+    .cancel-button {
+    font-size: 0.85rem;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    display: block; 
+    width: 100%; 
+    margin-bottom: 10px; 
+    }
+
+  
+  .update-button {
+    background-color: #2b842f;
+    margin-bottom: 10px;
+    width: 150px;
+  }
+  
+  .cancel-button {
+    background-color: #db382c;
+    width: 150px;
+  }
+  
+  .update-button:hover {
+    background-color: #44b74a;
+  }
+  
+  .cancel-button:hover {
+    background-color: #ff4b48;
+  }
+  
+  /* Update Modal */
+  .reservation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .reservation-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-title {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+    text-align: center;
+    color: #2c1c10;
+    margin-bottom: 40px; 
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2c1c10; 
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #2c1c10;
+  }
+  
+  input,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  
+  textarea {
+    resize: none;
+    height: 80px;
+  }
+  
+  .save-button,
+  .cancel-button {
+    font-size: 0.85rem;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    display: block; 
+    width: 100%; 
+    margin-bottom: 10px; 
+  }
+
+  .save-button {
+    background-color: #2b842f;
+  }
+  
+  .save-button:hover {
+    background-color: #45a049;
+  }
+
+  .cancel-button{
+    background-color: #db382c;
+  }
+
+  .cancel-button:hover{
+    background-color: #ff4b48;
+  }
