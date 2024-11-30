@@ -44,6 +44,7 @@ function AllReservations() {
   };
 
   const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
     const date = new Date(dateString);
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
@@ -52,6 +53,7 @@ function AllReservations() {
   };
 
   const formatTime = (timeString) => {
+    if (!timeString) return 'N/A';
     const [hours, minutes] = timeString.split(':').map(Number);
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const hours12 = hours % 12 || 12;
@@ -60,9 +62,9 @@ function AllReservations() {
   };
 
   const filteredReservations = reservations.filter((res) => {
-    const searchName = res.reservedUnder.toLowerCase();
-    const searchId = res.id.toString().toLowerCase();
-    const statusMatches = statusFilter ? res.status.toLowerCase() === statusFilter : true;
+    const searchName = res?.reservedUnder?.toLowerCase() || '';
+    const searchId = res?.id?.toString().toLowerCase() || '';
+    const statusMatches = statusFilter ? res?.status?.toLowerCase() === statusFilter : true;
     return (
       (searchName.includes(searchQuery) || searchId.includes(searchQuery)) && statusMatches
     );
@@ -71,25 +73,25 @@ function AllReservations() {
   const statusOrder = ['pending', 'checked in', 'checked out'];
 
   const sortedReservations = filteredReservations.sort((a, b) => {
-    const compareValueA = a[sortBy];
-    const compareValueB = b[sortBy];
+    const compareValueA = a?.[sortBy] || '';
+    const compareValueB = b?.[sortBy] || '';
 
     if (sortBy === 'id') {
       return sortOrder === 'asc' ? compareValueA - compareValueB : compareValueB - compareValueA;
     } else if (sortBy === 'name') {
       const normalize = (str) => str?.trim().toLowerCase() || '';
-      const valueA = normalize(a.reservedUnder);
-      const valueB = normalize(b.reservedUnder);
+      const valueA = normalize(a?.reservedUnder);
+      const valueB = normalize(b?.reservedUnder);
       return sortOrder === 'asc'
         ? valueA.localeCompare(valueB)
         : valueB.localeCompare(valueA);
     } else if (sortBy === 'date') {
-      const valueA = new Date(a.date);
-      const valueB = new Date(b.date);
+      const valueA = new Date(a?.date);
+      const valueB = new Date(b?.date);
       return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
     } else if (sortBy === 'status') {
-      const statusA = statusOrder.indexOf(a.status.toLowerCase());
-      const statusB = statusOrder.indexOf(b.status.toLowerCase());
+      const statusA = statusOrder.indexOf(a?.status?.toLowerCase() || '');
+      const statusB = statusOrder.indexOf(b?.status?.toLowerCase() || '');
       return sortOrder === 'asc' ? statusA - statusB : statusB - statusA;
     }
     return 0;
@@ -125,23 +127,21 @@ function AllReservations() {
                 <option value="desc">Descending</option>
               </select>
             </div>
-
-            {/* Conditionally render Filter by Status only when "Status" is selected in Sort by */}
-              {sortBy === 'status' && (
-                <div className="reservations-filter-wrapper">
-                  <label>Filter by Status:</label>
-                  <select
-                    value={statusFilter}
-                    onChange={handleStatusFilterChange}
-                    className="reservations-dropdown"
-                  >
-                    <option value="">All</option>
-                    <option value="pending">Pending</option>
-                    <option value="checked in">Checked In</option>
-                    <option value="checked out">Checked Out</option>
-                  </select>
-                </div>
-              )}
+            {sortBy === 'status' && (
+              <div className="reservations-filter-wrapper">
+                <label>Filter by Status:</label>
+                <select
+                  value={statusFilter}
+                  onChange={handleStatusFilterChange}
+                  className="reservations-dropdown"
+                >
+                  <option value="">All</option>
+                  <option value="pending">Pending</option>
+                  <option value="checked in">Checked In</option>
+                  <option value="checked out">Checked Out</option>
+                </select>
+              </div>
+            )}
           </div>
 
           <table className="reservations-table">
@@ -161,16 +161,16 @@ function AllReservations() {
 
             <tbody>
               {sortedReservations.map((res) => (
-                <tr key={res.id}>
-                  <td>{res.id}</td>
-                  <td>{res.reservedUnder}</td>
-                  <td>{res.email}</td>
-                  <td>{res.phone}</td>
-                  <td>{formatDate(res.date)}</td>
-                  <td>{formatTime(res.time)}</td>
-                  <td>{res.guests}</td>
-                  <td>{res.requests}</td>
-                  <td>{res.status}</td>
+                <tr key={res?.id || Math.random()}>
+                  <td>{res?.id || 'N/A'}</td>
+                  <td>{res?.reservedUnder || 'N/A'}</td>
+                  <td>{res?.email || 'N/A'}</td>
+                  <td>{res?.phone || 'N/A'}</td>
+                  <td>{formatDate(res?.date)}</td>
+                  <td>{formatTime(res?.time)}</td>
+                  <td>{res?.guests || 'N/A'}</td>
+                  <td>{res?.requests || 'N/A'}</td>
+                  <td>{res?.status || 'Pending'}</td>
                 </tr>
               ))}
             </tbody>
