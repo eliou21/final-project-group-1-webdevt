@@ -41,7 +41,7 @@ function AdminLogin({ onLogin }) {
        <h3>Admin Login</h3>
 
       <div className="input-box">
-       <label htmlFor="username" className="label-l">Username</label>
+       <label htmlFor="username" className="label-l">Email</label>
        <input
          type="email"
          value={email}

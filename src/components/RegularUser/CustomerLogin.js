@@ -37,7 +37,7 @@ function CustomerLogin({ onLogin }) {
        <h3>Customer Login </h3>
 
         <div className="input-box">
-       <label htmlFor="username" className="label-l">Username</label>
+       <label htmlFor="username" className="label-l">Email</label>
        <input
          type="text"
          placeholder="Email or Phone"
