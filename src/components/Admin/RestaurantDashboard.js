@@ -145,7 +145,7 @@ function RestaurantDashboard() {
                 {!restaurant.image && (
                   <div className="button-container">
                     <button
-                      className="action-button"
+                      className="action-button choose-file"
                       onClick={() => handleFileButtonClick(index)}
                       style={{ marginRight: '10px' }}
                     >
