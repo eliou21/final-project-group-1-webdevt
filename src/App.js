@@ -12,7 +12,6 @@ import AdminNavbar from './components/Admin/AdminNavbar';
 import AdminRestaurantNavbar from './components/RestaurantAdmin/RestaurantAdminNavbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminLogin from './components/Admin/AdminLogin';
-import AdminRegister from './components/Admin/AdminRegister';
 import RestaurantAdminLogin from './components/RestaurantAdmin/RestaurantAdminLogin';
 import RestaurantAdminRegister from './components/RestaurantAdmin/RestaurantAdminRegister';
 import CustomerLogin from './components/RegularUser/CustomerLogin';
@@ -85,7 +84,6 @@ function App() {
         <Route path="/login/customer" element={<CustomerLogin onLogin={handleLogin} />} />
         <Route path="/register/customer" element={<CustomerRegister />} />
         <Route path="/login/admin" element={<AdminLogin onLogin={handleLogin} />} />
-        <Route path="/register/admin" element={<AdminRegister />} />
         <Route path="/login/restaurant-admin" element={<RestaurantAdminLogin onLogin={handleLogin} />} />
         <Route path="/register/restaurant-admin" element={<RestaurantAdminRegister />} />
 
