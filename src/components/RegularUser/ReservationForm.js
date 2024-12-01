@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
+import { useLocation } from 'react-router-dom';
 import '../styles/ReservationForm.css';
 import reservation_img from '../image/reservation.jpg';
 
 function ReservationForm() {
-  const location = useLocation(); // Access state passed via navigate
-  const preSelectedRestaurant = location.state?.restaurantName || ''; // Retrieve pre-selected restaurant
+  const location = useLocation(); 
+  const preSelectedRestaurant = location.state?.restaurantName || '';
 
   const [reservationName, setReservationName] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [guests, setGuests] = useState('');
   const [requests, setRequests] = useState('');
-  const [restaurant, setRestaurant] = useState(preSelectedRestaurant); // Set pre-selected restaurant
+  const [restaurant, setRestaurant] = useState(preSelectedRestaurant);
   const [restaurants, setRestaurants] = useState([]);
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -25,7 +25,6 @@ function ReservationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validation and reservation logic remains unchanged
     if (!restaurant || !date || !time || !guests || !reservationName || !phone) {
       alert('Please fill in all required fields.');
       return;
@@ -87,13 +86,12 @@ function ReservationForm() {
 
     alert('Reservation successfully made.');
 
-    // Reset form fields
     setReservationName('');
     setDate('');
     setTime('');
     setGuests('');
     setRequests('');
-    setRestaurant(preSelectedRestaurant); // Reset to pre-selected restaurant
+    setRestaurant(preSelectedRestaurant); 
     setPhone('');
     setEmail('');
   };
