@@ -32,7 +32,7 @@ function AdminLogin({ onLogin }) {
 
   return (
     <div className="background">
-      <form onSubmit={handleLogin} className="form-form">
+      <form onSubmit={handleLogin} className="form-form admin-login">
         <h3>Admin Login</h3>
 
         <div className="input-box">

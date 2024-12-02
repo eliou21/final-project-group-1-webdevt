@@ -16,7 +16,9 @@ function ManageRestaurant() {
 
       const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
       const filteredReservations = allReservations.filter(
-        (res) => res.restaurant === currentUser.restaurantName
+        (res) =>
+          res.restaurant === currentUser.restaurantName &&
+          res.status?.toLowerCase() !== 'checked in' // Exclude "Checked In" reservations
       );
       setReservations(filteredReservations);
     } else {

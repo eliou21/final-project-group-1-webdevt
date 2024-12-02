@@ -4,6 +4,7 @@ import '../styles/Welcome.css';
 
 function RestaurantAdminLogin({ onLogin }) {
   const [restaurantName, setRestaurantName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [availableRestaurants, setAvailableRestaurants] = useState([]);
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ function RestaurantAdminLogin({ onLogin }) {
     const user = users.find(
       (user) =>
         user.restaurantName === restaurantName &&
+        user.email === email &&
         user.password === password &&
         user.role === 'Restaurant Admin'
     );
@@ -34,7 +36,7 @@ function RestaurantAdminLogin({ onLogin }) {
       navigate('restaurant-admin/all-reservations');
       window.location.reload(); 
     } else {
-      alert('Invalid restaurant or password');
+      alert('Invalid restaurant, email, or password');
     }
   };
 
@@ -47,11 +49,11 @@ function RestaurantAdminLogin({ onLogin }) {
     <div className="background">
       <div className="shape"></div>
       <div className="shape"></div>
-      <form onSubmit={handleLogin} className="form-form">
+      <form onSubmit={handleLogin} className="form-form resto-admin">
         <h3>Restaurant Admin Login</h3>
 
         {/* Input Box */}
-        <div className="input-box">
+        <div className="input-box resto-login">
 
           {/* Restaurant Selection */}
           <div className="select-resto">
@@ -75,6 +77,18 @@ function RestaurantAdminLogin({ onLogin }) {
               <p>No available restaurants</p>
             )}
           </div>
+
+          {/* Email Input */}
+          <label htmlFor="email" className="label-l">Email</label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+            className="input-put"
+          />
 
           {/* Password Input */}
           <label htmlFor="password" className="label-l">Password</label>
