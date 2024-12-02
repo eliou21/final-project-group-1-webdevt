@@ -16,9 +16,7 @@ function ManageRestaurant() {
 
       const allReservations = JSON.parse(localStorage.getItem('reservations')) || [];
       const filteredReservations = allReservations.filter(
-        (res) =>
-          res.restaurant === currentUser.restaurantName &&
-          res.status?.toLowerCase() !== 'checked in' // Exclude "Checked In" reservations
+        (res) => res.restaurant === currentUser.restaurantName && res.status !== 'Checked In' && res.status !== 'Checked Out'
       );
       setReservations(filteredReservations);
     } else {
@@ -96,66 +94,66 @@ function ManageRestaurant() {
   return (
     <div className="reservations-container">
       <h1 className="reservations-title">Reservations for {restaurantName}</h1>
-      {reservations.length === 0 ? (
-        <p className="no-reservations-text">No reservations available.</p>
-      ) : (
-        <>
-          <div className="reservations-controls">
-            <label>Search:</label>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="reservations-search-input"
-              placeholder="Search by Name or Reservation ID"
-            />
-            <div className="reservations-sort-wrapper">
-              <label>Sort by:</label>
-              <select name="sortBy" className="reservations-dropdown" onChange={handleSortChange}>
-                <option value="id">Reservation ID</option>
-                <option value="name">Name</option>
-                <option value="date">Date</option>
-              </select>
-              <label>Order:</label>
-              <select name="sortOrder" className="reservations-dropdown" onChange={handleSortChange}>
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-              </select>
-            </div>
-          </div>
+      <div className="reservations-controls">
+        <label>Search:</label>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="reservations-search-input"
+          placeholder="Search by Name or Reservation ID"
+        />
+        <div className="reservations-sort-wrapper">
+          <label>Sort by:</label>
+          <select name="sortBy" className="reservations-dropdown" onChange={handleSortChange}>
+            <option value="id">Reservation ID</option>
+            <option value="name">Name</option>
+            <option value="date">Date</option>
+          </select>
+          <label>Order:</label>
+          <select name="sortOrder" className="reservations-dropdown" onChange={handleSortChange}>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
+      </div>
 
-          <table className="reservations-table">
-            <thead>
-              <tr>
-                <th>Reservation ID</th>
-                <th>Reserved Under</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Guests</th>
-                <th>Action</th>
+      <table className="reservations-table">
+        <thead>
+          <tr>
+            <th>Reservation ID</th>
+            <th>Reserved Under</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Guests</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedReservations.length === 0 ? (
+            <tr>
+              <td colSpan="6" className="no-reservations-text">No reservations available.</td>
+            </tr>
+          ) : (
+            sortedReservations.map((res) => (
+              <tr key={res.id}>
+                <td>{res.id}</td>
+                <td>{res.reservedUnder}</td>
+                <td>{formatDate(res.date)}</td>
+                <td>{formatTime(res.time)}</td>
+                <td>{res.guests}</td>
+                <td>
+                  <button
+                    onClick={() => handleCancelReservation(res.id)}
+                    className="action-button cancel-btn">
+                    Cancel
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {sortedReservations.map((res) => (
-                <tr key={res.id}>
-                  <td>{res.id}</td>
-                  <td>{res.reservedUnder}</td>
-                  <td>{formatDate(res.date)}</td>
-                  <td>{formatTime(res.time)}</td>
-                  <td>{res.guests}</td>
-                  <td>
-                    <button
-                      onClick={() => handleCancelReservation(res.id)}
-                      className="action-button cancel-btn">
-                      Cancel
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
